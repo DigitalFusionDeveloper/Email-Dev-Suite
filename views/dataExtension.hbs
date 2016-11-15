@@ -1,0 +1,12 @@
+{{#each dataExtension}}
+    <li>
+        {{this.Name}} - {{this.CustomerKey}}
+    </li>
+{{/each}}
+
+
+<form action="/de" method="post">
+    <button class="btn waves-effect waves-light" type="submit" name="action">
+  Create Data Extension<i class="material-icons right">send</i>
+</button>
+</form>

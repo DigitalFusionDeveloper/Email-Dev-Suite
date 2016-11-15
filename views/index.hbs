@@ -1,0 +1,13 @@
+<div class="section row col s12">
+    <div class="center-align">
+        <a class='dropdown-button btn' data-beloworigin="true" href='#' data-activates='dropdown1'>Client List</a>
+    </div>
+</div>
+
+
+<!-- Dropdown Structure -->
+<ul id='dropdown1' class='dropdown-content'>
+    {{#each clients}}
+        <li><a href="/{{this.client_name}}">{{this.client_name}}</a></li>
+    {{/each}}
+</ul>
