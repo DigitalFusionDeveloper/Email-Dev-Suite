@@ -19,14 +19,15 @@ module.exports = {
         return client.dataExtension(options);
     },
 
-    getDE: function(client, name) {
+    getDE: function(client) {
         var options = {
-            props: ["Name", "CustomerKey"], //required
-            filter: { //remove filter for all.
-                leftOperand: "Name",
-                operator: "equals",
-                rightOperand: name
-            }
+            props: ["Name", "CustomerKey", "CategoryID"] //required properties you are asking for....
+                //     ,
+                // filter: { //remove filter for all.
+                //     leftOperand: "CategoryID",
+                //     operator: "equals",
+                //     rightOperand: categoryID
+                // }
         };
         return client.dataExtension(options);
     },

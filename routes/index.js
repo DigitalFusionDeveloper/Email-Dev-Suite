@@ -5,10 +5,8 @@ var folder = require("../api/folder");
 var auth = require("../auth/auth");
 var client = require("../db/api/client");
 var api = require("../api/api");
+require("dotenv").config();
 
-if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config();
-}
 var ET_Client = require("fuelsdk-node");
 var IET_Client;
 
@@ -27,6 +25,35 @@ router.get("/", function(req, res, next) {
 router.get("/logout", function(req, res, next) {
     req.session.employee = null;
     res.redirect("/");
+});
+
+router.get("/data", function(req, res, next) {
+    api.getDEsAndFolders(IET_Client).then(values => {
+        res.send(api.mergeDEandFolders(values));
+    });
+});
+
+router.get("/de/:client", function(req, res, next) {
+    var clientName = req.params.client;
+    res.render("dataExtension", {
+        clientName: clientName,
+        employee: req.session.employee
+    });
+
+    // api.getDEsAndFolders(IET_Client).then(values => {
+    //     res.send(api.mergeDEandFolders(values));
+    //
+    //     de.getDE(IET_Client, oneFolder[0].ID.toString()).get(function(err, response) {
+    //         var statusCode = response && response.res && response.res.statusCode ? response.res.statusCode : 200;
+    //         var result = response && response.body ? response.body : response;
+    //         response && res.status(statusCode).render("dataExtension", {
+    //             dataExtension: result.Results,
+    //             clientName: clientName,
+    //             error: err,
+    //             employee: req.session.employee
+    //         });
+    //     });
+    // });
 });
 
 router.get("/:client", function(req, res, next) {

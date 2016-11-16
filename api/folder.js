@@ -1,47 +1,37 @@
 module.exports = {
     postFolder: function(client, name, contentType, parentID) {
         var options = {
-          props: {
-              "Name": name,
-              "Description": name,
-              "ContentType": contentType,
-              "ParentFolder": {
-                  "ID": parentID
-              },
-              "AllowChildren": "true",
-              "IsEditable": "true"
-          }
-        };//
+            props: {
+                "Name": name,
+                "Description": name,
+                "ContentType": contentType,
+                "ParentFolder": {
+                    "ID": parentID
+                },
+                "AllowChildren": "true",
+                "IsEditable": "true"
+            }
+        }; //
         return client.folder(options);
     },
 
     getFolders: function(client) {
         var options = {
             props: ["ParentFolder.ID", "ID", "Name", "ContentType"] // only required option
-
-            // ,
-            // filter: {
-            //     leftOperand: "ContentType",
-            //     operator: "equals",
-            //     rightOperand: contentType
-            // }
         };
         return client.folder(options);
+    },
 
-        // var result = folder.getFolder(IET_Client, "dataextension"); // dataextension || media || email || userinitiatedsends
-        // result.get(function(err, response) {
-        //     if (err) {
-        //         res.status(500).send(err);
-        //     } else {
-        //         var statusCode = response && response.res && response.res.statusCode ? response.res.statusCode : 200;
-        //         var result = response && response.body ? response.body : response;
-        //         response && res.status(statusCode).render("client", {
-        //             employee: req.session.employee,
-        //             client: result.Results
-        //         });
-        //     }
-        // });
-
+    getFolderByContentType: function(client, contentType) {
+        var options = {
+            props: ["ParentFolder.ID", "ID", "Name", "ContentType"],
+            filter: {
+                leftOperand: "ContentType",
+                operator: "equals",
+                rightOperand: contentType // dataextension || media \\ email \\ userinitiatedsends
+            }
+        };
+        return client.folder(options);
     },
 
     patchFolder: function(client) {
