@@ -7,7 +7,7 @@ $(function() {
         "core": {
             "multiple": false,
             "data": {
-                "url": "http://localhost:3000/data"
+                "url": (process.env.NODE_ENV == "production" ? "https://email-dev-suite.herokuapp.com/data" : "http://localhost:3000/data")
             }
         }
     });
