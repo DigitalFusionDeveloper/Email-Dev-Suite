@@ -6,9 +6,23 @@ $(function() {
         },
         "core": {
             "multiple": false,
+            // "data": {
+            //     "url": "https://email-dev-suite.herokuapp.com/data" //http://localhost:3000/data
+            // }
             "data": {
-                "url": "https://email-dev-suite.herokuapp.com/data"
+                "url": "http://localhost:3000/data"
             }
         }
     });
+    $('#createDE').on('click', function() {
+        var selected = $('#jstree').jstree(true).get_selected(true);
+        var data = {
+            id: selected[0].id,
+            text: selected[0].text,
+            parent: selected[0].parent,
+            data: selected[0].data
+        };
+        $.post("/de/data", data);
+    });
+
 });

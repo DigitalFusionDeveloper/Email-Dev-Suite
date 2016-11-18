@@ -5,12 +5,15 @@ var folder = require("../api/folder");
 var auth = require("../auth/auth");
 var client = require("../db/api/client");
 var api = require("../api/api");
+var deData = require("../db/api/deData");
+
 require("dotenv").config();
 
 var ET_Client = require("fuelsdk-node");
 var IET_Client;
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
@@ -40,20 +43,18 @@ router.get("/de/:client", function(req, res, next) {
         employee: req.session.employee
     });
 
-    // api.getDEsAndFolders(IET_Client).then(values => {
-    //     res.send(api.mergeDEandFolders(values));
-    //
-    //     de.getDE(IET_Client, oneFolder[0].ID.toString()).get(function(err, response) {
-    //         var statusCode = response && response.res && response.res.statusCode ? response.res.statusCode : 200;
-    //         var result = response && response.body ? response.body : response;
-    //         response && res.status(statusCode).render("dataExtension", {
-    //             dataExtension: result.Results,
-    //             clientName: clientName,
-    //             error: err,
-    //             employee: req.session.employee
-    //         });
-    //     });
-    // });
+});
+router.get("/de/create/:client", function(req, res) {
+    var clientName = req.params.client;
+    deData.getDEData().then(data => {
+        res.render("createDE", {
+            clientName: clientName,
+            folder: (data.data == "folder" ? "folder" : null),
+            extension: (data.data == "extension" ? "extension" : null),
+            employee: req.session.employee,
+            data: data
+        });
+    });
 });
 
 router.get("/:client", function(req, res, next) {
@@ -67,6 +68,46 @@ router.get("/:client", function(req, res, next) {
             employee: req.session.employee
         });
     });
+});
+
+router.post("/de/data", function(req, res, next) {
+    deData.setDEData(req.body).then();
+});
+
+// ==========================================
+router.post("/de/createExtension", function(req, res, next) {
+    de.getDERow(IET_Client).get(function(err, response) {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            var statusCode = response && response.res && response.res.statusCode ? response.res.statusCode : 200;
+            var result = response && response.body ? response.body : response;
+            response && res.status(statusCode).send(result);
+        }
+    });
+
+
+
+    // var deString = req.body.data;
+    // var columns = api.getHeaderArray(deString);
+    // de.postDE(IET_Client, req.body.name, req.body.folderNumber, columns).post(function(err, response) {
+    //     if (err) {
+    //         res.render("error", {
+    //             message: "Another Data Extension with that name already exists... I'm pretty sure!",
+    //             error: err,
+    //             employee: req.session.employee
+    //         });
+    //     } else {
+    //         var deRowData = api.getRowsArray(deString);
+    //         // de.postDERow(IET_Client, req.body.name, deRowData[0][0]).post(function(err, response) {
+    //         //     res.send(response.body);
+    //         // });
+    //     }
+    // });
+});
+// ==========================================
+router.post("/de/updateExtension", function(req, res, next) {
+    res.send(req.body);
 });
 
 router.post("/folder/create/:client", function(req, res, next) {

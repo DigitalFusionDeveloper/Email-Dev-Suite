@@ -1,20 +1,11 @@
 module.exports = {
-    postDE: function(client) {
+    postDE: function(client, name, folderNumber, columns) {
         var options = {
             props: {
-                "Name": "SDKDataExtension", //New DE Name
-                "CategoryID": "93125" //folder ID
+                "Name": name, //New DE Name
+                "CategoryID": folderNumber //folder ID
             },
-            columns: [{
-                "Name": "Key",
-                "FieldType": "Text",
-                "IsPrimaryKey": "true",
-                "MaxLength": "100",
-                "IsRequired": "true"
-            }, {
-                "Name": "Value",
-                "FieldType": "Text"
-            }]
+            columns: columns
         };
         return client.dataExtension(options);
     },
@@ -69,48 +60,32 @@ module.exports = {
             //*/
         };
         return client.dataExtensionColumn(options);
-
-        // deColumn.get(function(err, response) {
-        //     if (err) {
-        //         res.status(500).send(err);
-        //     } else {
-        //         var statusCode = response && response.res && response.res.statusCode ? response.res.statusCode : 200;
-        //         var result = response && response.body ? response.body : response;
-        //         response && res.status(statusCode).send(result);
-        //     }
-        // });
     },
 
     //****************************************************************************************
     //								Row
     //****************************************************************************************
 
-    postDERow: function(client) {
+    postDERow: function(client, name, props) {
         var options = {
-            Name: "Evan_Practice",
+            Name: "test10",
             props: {
-                "Key": "ThisIsTheKey",
-                "Value": "Some random text for the value field"
+                Key: "emailaddress",
+                Value: "execution@digitalfusion.com"
             }
         };
-
         return client.dataExtensionRow(options);
 
-        // deRow.post(function(err, response) {
-        //     if (err) {
-        //         res.status(500).send(err);
-        //     } else {
-        //         var statusCode = response && response.res && response.res.statusCode ? response.res.statusCode : 200;
-        //         var result = response && response.body ? response.body : response;
-        //         response && res.status(statusCode).send(result);
-        //     }
-        // });
+        // props: {
+        //     "Key": "ThisIsTheKey",
+        //     "Value": "Some random text for the value field"
+        // }
+
     },
 
     getDERow: function(client) {
         var options = {
-            Name: "SDKDataExtension" //required
-                ,
+            "Name": "Evan_Master_Active", //required
             props: ["Key", "Value"] //required
                 /*
 		,filter: {						//remove filter for all.
@@ -121,15 +96,6 @@ module.exports = {
    		*/
         };
         return client.dataExtensionRow(options);
-
-        // deRow.get(function(err, response) {//     if (err) {
-        //         res.status(500).send(err);
-        //     } else {
-        //         var statusCode = response && response.res && response.res.statusCode ? response.res.statusCode : 200;
-        //         var result = response && response.body ? response.body : response;
-        //         response && res.status(statusCode).send(result);
-        //     }
-        // });
     },
 
     patchDERow: function(client) {
@@ -141,16 +107,6 @@ module.exports = {
             }
         };
         client.dataExtensionRow(options);
-
-        // deRow.patch(function(err, response) {
-        //     if (err) {
-        //         res.status(500).send(err);
-        //     } else {
-        //         var statusCode = response && response.res && response.res.statusCode ? response.res.statusCode : 200;
-        //         var result = response && response.body ? response.body : response;
-        //         response && res.status(statusCode).send(result);
-        //     }
-        // });
     },
 
     deleteDERow: function(client) {
@@ -161,15 +117,5 @@ module.exports = {
             }
         };
         client.dataExtensionRow(options);
-
-        // deRow.delete(function(err, response) {
-        //     if (err) {
-        //         res.status(500).send(err);
-        //     } else {
-        //         var statusCode = response && response.res && response.res.statusCode ? response.res.statusCode : 200;
-        //         var result = response && response.body ? response.body : response;
-        //         response && res.status(statusCode).send(result);
-        //     }
-        // });
     }
 };

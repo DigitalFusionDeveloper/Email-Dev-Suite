@@ -2,6 +2,51 @@ var folder = require("./folder");
 var de = require("./de");
 
 module.exports = {
+    getRowsArray: function(string) {
+        var headers = string.split(/\r\n/)[0].split(/\t/);
+        var rowsArray = string.split(/\r\n/).slice(1).map(row => {
+            return row.split(/\t/);
+        });
+
+        rowsArray = rowsArray.map(row => {
+            return row.map(value => {
+                var newProp = {
+                    Key: headers[0],
+                    Value: value
+                };
+                rotate();
+                return newProp;
+            });
+        });
+
+        function rotate() {
+            headers.push(headers.shift());
+        }
+        return rowsArray;
+    },
+    getHeaderArray: function(string) {
+        var headers = string.split(/\r\n/)[0].split(/\t/);
+        var columns = [];
+        headers.forEach((header, index) => {
+            if (index == 0) {
+                columns.push({
+                    "Name": header,
+                    "FieldType": "EmailAddress",
+                    "IsPrimaryKey": "false",
+                    "IsRequired": "true"
+                });
+            } else {
+                columns.push({
+                    "Name": header,
+                    "FieldType": "Text",
+                    "IsPrimaryKey": "false",
+                    "MaxLength": "50",
+                    "IsRequired": "false"
+                });
+            }
+        });
+        return columns;
+    },
     mergeDEandFolders: function(valuesArray) {
         var values = [];
         var folderArray = [];
@@ -11,7 +56,8 @@ module.exports = {
                 id: value.id,
                 text: value.name,
                 parent: (value.parentID == "0" ? "#" : value.parentID),
-                icon: "/images/folder.png"
+                icon: "/images/folder.png",
+                data: "folder"
             });
         });
         valuesArray[1].forEach(value => {
@@ -20,19 +66,13 @@ module.exports = {
                     id: value.CustomerKey,
                     text: value.Name,
                     parent: value.CategoryID,
-                    icon: "/images/data.png"
+                    icon: "/images/data.png",
+                    data: "extension"
                 });
             }
         });
 
         return values;
-
-        // ObjectID: '',
-        // CustomerKey: 'WelcomeEmailTS',
-        // Name: 'WelcomeEmailTS',
-        // CategoryID: '88291' },
-
-        // id, parent, text, icon
     },
     getDEsAndFolders: function(IET_Client) {
         var folderPromise = new Promise((resolve) => {

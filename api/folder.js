@@ -42,16 +42,6 @@ module.exports = {
             }
         };
         return client.folder(options);
-
-        // folder.patch(function(err, response) {
-        //     if (err) {
-        //         res.status(500).send(err);
-        //     } else {
-        //         var statusCode = response && response.res && response.res.statusCode ? response.res.statusCode : 200;
-        //         var result = response && response.body ? response.body : response;
-        //         response && res.status(statusCode).send(result);
-        //     }
-        // });
     },
 
     deleteFolder: function(client) {
@@ -61,15 +51,5 @@ module.exports = {
             } //required
         };
         return client.folder(options);
-
-        // folder.delete(function(err, response) {
-        //     if (err) {
-        //         res.status(500).send(err);
-        //     } else {
-        //         var statusCode = response && response.res && response.res.statusCode ? response.res.statusCode : 200;
-        //         var result = response && response.body ? response.body : response;
-        //         response && res.status(statusCode).send(result);
-        //     }
-        // });
     }
 };
