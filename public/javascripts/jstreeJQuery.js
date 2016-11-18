@@ -8,14 +8,14 @@ $(function() {
             "multiple": false,
 
             // Production:
-            "data": {
-                "url": "https://email-dev-suite.herokuapp.com/data"
-            }
+            // "data": {
+            //     "url": "https://email-dev-suite.herokuapp.com/data"
+            // }
 
             //Development
-            // "data": {
-            //     "url": "http://localhost:3000/data"
-            // }
+            "data": {
+                "url": "http://localhost:3000/data"
+            }
         }
     });
     $('#createDE').on('click', function() {
@@ -27,11 +27,11 @@ $(function() {
             data: selected[0].data
         };
 
-        // Production
-        $.post("https://email-dev-suite.herokuapp.com/de/data", data);
+        // Production:
+        // $.post("https://email-dev-suite.herokuapp.com/de/data", data);
 
         // Development
-        // $.post("/de/data", data);
+        $.post("/de/data", data);
     });
 
 });
