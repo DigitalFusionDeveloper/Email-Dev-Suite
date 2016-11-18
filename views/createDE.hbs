@@ -6,13 +6,13 @@
         <form class="col s12" action="/de/createExtension/{{clientName}}" method="post">
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="name" name="name" type="text" class="validate" required>
+                    <input id="name" name="name" type="text" class="validate" autofocus required>
                     <label for="name">Name of New Data Extension</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea name="data" id="textarea1" required autofocus class="materialize-textarea" placeholder="Copy and paste directly from excel do not modify.  Enter only Tab-separated values."></textarea>
+                    <textarea name="data" id="textarea1" required class="materialize-textarea" placeholder="Email must be first column. All other columns are text.  Copy and paste directly from excel do not modify."></textarea>
                     <label for="textarea1">Copy/Paste the Data Extension below:</label>
                 </div>
             </div>

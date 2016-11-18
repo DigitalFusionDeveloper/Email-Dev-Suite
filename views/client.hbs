@@ -15,9 +15,9 @@
             <button class="btn waves-effect waves-light" type="submit" name="action">Create Folders<i class="material-icons right">create_new_folder</i></button>
         </div>
     </form>
-    <ul>
-        {{#each message}}
-            <li>{{this}}</li>
-        {{/each}}
-    </ul>
+
+    {{#each message}}
+        <h5 class="blue-text">{{this}}</h5>
+    {{/each}}
+
 </div>

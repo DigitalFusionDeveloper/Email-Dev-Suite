@@ -88,7 +88,7 @@ router.post("/de/createExtension/:client", function(req, res, next) {
             var promises = api.buildRowPromises(api.getRowsArray(deString), IET_Client, req.body.name);
             Promise.all(promises).then(() => {
                 res.render("client", {
-                    message: "Data Extension Ready to go!",
+                    message: ["Data Extension Ready to go!"],
                     clientName: clientName,
                     employee: req.session.employee
                 });

@@ -7,10 +7,10 @@ $(function() {
         "core": {
             "multiple": false,
 
-            Production:
-                "data": {
-                    "url": "https://email-dev-suite.herokuapp.com/data"
-                }
+            // Production:
+            "data": {
+                "url": "https://email-dev-suite.herokuapp.com/data"
+            }
 
             //Development
             // "data": {
@@ -27,7 +27,7 @@ $(function() {
             data: selected[0].data
         };
 
-        Production
+        // Production
         $.post("https://email-dev-suite.herokuapp.com/de/data", data);
 
         // Development
