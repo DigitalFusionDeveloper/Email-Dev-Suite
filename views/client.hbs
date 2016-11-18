@@ -5,7 +5,8 @@
         <a href="/de/{{clientName}}" class="waves-effect waves-light btn"><i class="material-icons right">extension</i>Data Extensions</a>
     </div>
 </div>
-<div class="row">
+<h1></h1>
+<div class="row folderBorder">
     <form class="col s12" action="/folder/create/{{clientName}}" method="post">
         <div class="row">
             <div class="input-field col s8">
@@ -25,9 +26,10 @@
             </div>
         </div>
     </form>
-
+</div>
+{{#if message}}
+    <hr>
     {{#each message}}
         <h5 class="blue-text">{{this}}</h5>
     {{/each}}
-
-</div>
+{{/if}}
