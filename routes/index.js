@@ -73,7 +73,8 @@ router.post("/de/data", function(req, res, next) {
     deData.setDEData(req.body).then();
 });
 
-router.post("/de/createExtension", function(req, res, next) {
+router.post("/de/createExtension/:client", function(req, res, next) {
+    var clientName = req.params.client;
     var deString = req.body.data;
     var columns = api.getHeaderArray(deString);
     de.postDE(IET_Client, req.body.name, req.body.folderNumber, columns).post(function(err) {
@@ -86,8 +87,9 @@ router.post("/de/createExtension", function(req, res, next) {
         } else {
             var promises = api.buildRowPromises(api.getRowsArray(deString), IET_Client, req.body.name);
             Promise.all(promises).then(() => {
-                res.render("index", {
-                    message: "Data Extension ready to go!",
+                res.render("client", {
+                    message: "Data Extension Ready to go!",
+                    clientName: clientName,
                     employee: req.session.employee
                 });
             });
@@ -95,7 +97,8 @@ router.post("/de/createExtension", function(req, res, next) {
     });
 });
 
-router.post("/de/updateExtension", function(req, res, next) {
+router.post("/de/updateExtension/:client", function(req, res, next) {
+    var clientName = req.params.client;
     res.send(req.body);
 });
 

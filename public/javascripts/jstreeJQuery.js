@@ -7,10 +7,12 @@ $(function() {
         "core": {
             "multiple": false,
 
-            "data": {
-                "url": "https://email-dev-suite.herokuapp.com/data"
-            }
+            Production:
+                "data": {
+                    "url": "https://email-dev-suite.herokuapp.com/data"
+                }
 
+            //Development
             // "data": {
             //     "url": "http://localhost:3000/data"
             // }
@@ -24,7 +26,12 @@ $(function() {
             parent: selected[0].parent,
             data: selected[0].data
         };
+
+        Production
         $.post("https://email-dev-suite.herokuapp.com/de/data", data);
+
+        // Development
+        // $.post("/de/data", data);
     });
 
 });
