@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 var de = require("../api/de");
 var folder = require("../api/folder");
-var auth = require("../auth/auth");
 var client = require("../db/api/client");
 var api = require("../api/api");
 var deData = require("../db/api/deData");
@@ -74,38 +73,28 @@ router.post("/de/data", function(req, res, next) {
     deData.setDEData(req.body).then();
 });
 
-// ==========================================
 router.post("/de/createExtension", function(req, res, next) {
-    de.getDERow(IET_Client).get(function(err, response) {
+    var deString = req.body.data;
+    var columns = api.getHeaderArray(deString);
+    de.postDE(IET_Client, req.body.name, req.body.folderNumber, columns).post(function(err) {
         if (err) {
-            res.status(500).send(err);
+            res.render("error", {
+                message: "Another Data Extension with that name already exists... I'm pretty sure!",
+                error: err,
+                employee: req.session.employee
+            });
         } else {
-            var statusCode = response && response.res && response.res.statusCode ? response.res.statusCode : 200;
-            var result = response && response.body ? response.body : response;
-            response && res.status(statusCode).send(result);
+            var promises = api.buildRowPromises(api.getRowsArray(deString), IET_Client, req.body.name);
+            Promise.all(promises).then(() => {
+                res.render("index", {
+                    message: "Data Extension ready to go!",
+                    employee: req.session.employee
+                });
+            });
         }
     });
-
-
-
-    // var deString = req.body.data;
-    // var columns = api.getHeaderArray(deString);
-    // de.postDE(IET_Client, req.body.name, req.body.folderNumber, columns).post(function(err, response) {
-    //     if (err) {
-    //         res.render("error", {
-    //             message: "Another Data Extension with that name already exists... I'm pretty sure!",
-    //             error: err,
-    //             employee: req.session.employee
-    //         });
-    //     } else {
-    //         var deRowData = api.getRowsArray(deString);
-    //         // de.postDERow(IET_Client, req.body.name, deRowData[0][0]).post(function(err, response) {
-    //         //     res.send(response.body);
-    //         // });
-    //     }
-    // });
 });
-// ==========================================
+
 router.post("/de/updateExtension", function(req, res, next) {
     res.send(req.body);
 });
@@ -117,7 +106,6 @@ router.post("/folder/create/:client", function(req, res, next) {
         if (err) {
             res.status(500).send(err);
         } else {
-            var statusCode = response && response.res && response.res.statusCode ? response.res.statusCode : 200;
             var folders = response && response.body ? response.body : response;
             folders = api.modifyFolderResults(folders.Results);
 
@@ -132,7 +120,7 @@ router.post("/folder/create/:client", function(req, res, next) {
                     message: values,
                     clientName: clientName,
                     employee: req.session.employee
-                })
+                });
             }, reason => {
                 res.render("client", {
                     message: reason,

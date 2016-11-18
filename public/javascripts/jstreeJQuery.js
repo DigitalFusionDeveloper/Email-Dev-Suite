@@ -6,12 +6,12 @@ $(function() {
         },
         "core": {
             "multiple": false,
-            // "data": {
-            //     "url": "https://email-dev-suite.herokuapp.com/data" //http://localhost:3000/data
-            // }
             "data": {
-                "url": "http://localhost:3000/data"
+                "url": "https://email-dev-suite.herokuapp.com/data" //http://localhost:3000/data
             }
+            // "data": {
+            //     "url": "http://localhost:3000/data"
+            // }
         }
     });
     $('#createDE').on('click', function() {

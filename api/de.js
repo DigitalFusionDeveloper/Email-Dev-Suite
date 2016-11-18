@@ -55,7 +55,7 @@ module.exports = {
             filter: { //remove filter for all.
                 leftOperand: "DataExtension.CustomerKey",
                 operator: "equals",
-                rightOperand: "11B81EC2-4CED-4BFA-977A-FACBED132890"
+                rightOperand: "991CEC7A-1A07-4FC1-8DEE-7FC4411EF0FD"
             }
             //*/
         };
@@ -66,26 +66,20 @@ module.exports = {
     //								Row
     //****************************************************************************************
 
+
+
+
     postDERow: function(client, name, props) {
         var options = {
-            Name: "test10",
-            props: {
-                Key: "emailaddress",
-                Value: "execution@digitalfusion.com"
-            }
+            Name: name,
+            props: props
         };
         return client.dataExtensionRow(options);
-
-        // props: {
-        //     "Key": "ThisIsTheKey",
-        //     "Value": "Some random text for the value field"
-        // }
-
     },
 
     getDERow: function(client) {
         var options = {
-            "Name": "Evan_Master_Active", //required
+            Name: "Evan_Master_Active", //required
             props: ["Key", "Value"] //required
                 /*
 		,filter: {						//remove filter for all.

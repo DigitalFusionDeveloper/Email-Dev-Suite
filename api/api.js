@@ -2,27 +2,39 @@ var folder = require("./folder");
 var de = require("./de");
 
 module.exports = {
+    buildRowPromises: function(arrayOfRows, client, name) {
+        var promiseArray = [];
+        arrayOfRows.forEach(row => {
+            promiseArray.push(new Promise((resolve, reject) => {
+                de.postDERow(client, name, row).post(function(err) {
+                    err ? reject() : resolve();
+                });
+            }));
+        });
+        return promiseArray;
+    },
     getRowsArray: function(string) {
         var headers = string.split(/\r\n/)[0].split(/\t/);
         var rowsArray = string.split(/\r\n/).slice(1).map(row => {
             return row.split(/\t/);
         });
-
-        rowsArray = rowsArray.map(row => {
-            return row.map(value => {
-                var newProp = {
-                    Key: headers[0],
-                    Value: value
-                };
+        var allRows = [];
+        var individualRow = {};
+        var header;
+        rowsArray.forEach(row => {
+            row.forEach(value => {
+                header = headers[0];
+                individualRow[header] = value;
                 rotate();
-                return newProp;
             });
+            allRows.push(individualRow);
+            individualRow = {};
         });
 
         function rotate() {
             headers.push(headers.shift());
         }
-        return rowsArray;
+        return allRows;
     },
     getHeaderArray: function(string) {
         var headers = string.split(/\r\n/)[0].split(/\t/);
