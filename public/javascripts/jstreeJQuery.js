@@ -6,9 +6,11 @@ $(function() {
         },
         "core": {
             "multiple": false,
+
             "data": {
-                "url": "https://email-dev-suite.herokuapp.com/data" //http://localhost:3000/data
+                "url": "https://email-dev-suite.herokuapp.com/data"
             }
+
             // "data": {
             //     "url": "http://localhost:3000/data"
             // }
@@ -22,7 +24,7 @@ $(function() {
             parent: selected[0].parent,
             data: selected[0].data
         };
-        $.post("/de/data", data);
+        $.post("https://email-dev-suite.herokuapp.com/de/data", data);
     });
 
 });
