@@ -17,7 +17,18 @@
                 </div>
             </div>
             <input type="text" name="folderNumber" value="{{data.number}}" hidden>
-            <button class="btn waves-effect waves-light" type="submit">Create Data Extension<i class="material-icons right">send</i></button>
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                    <h4>Warning!</h4>
+                    <p>You are about to create a Data Extension.</p>
+                    <p>Are you sure?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn waves-effect waves-light green" type="submit">Create Data Extension<i class="material-icons right">send</i></button>
+                    <a href="#!" class="modal-action modal-close waves-effect waves-light btn red">Close</a>
+                </div>
+            </div>
+            <a class="btn waves-effect waves-light" href="#modal1">Create Data Extension<i class="material-icons right">send</i></a>
         </form>
     </div>
 {{/if}}
