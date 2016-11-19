@@ -11,24 +11,28 @@
 </head>
 
 <body>
-    <div class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper">
-                <a href="#" class="brand-logo center">Email Dev Suite</a>
-                {{#if employee}}
-                    <ul class="right">
-                        <li><a href="/logout">Logout</a></li>
-                    </ul>
-                    <ul class="left">
-                        <li><a href="/">Home</a></li>
-                    </ul>
-                {{/if}}
-            </div>
-        </nav>
-    </div>
-    <div class="container">
-        {{{body}}}
-    </div>
+    <header>
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper blue darken-3">
+                    <a href="/" class="brand-logo center">Email Dev Suite</a>
+                    {{#if employee}}
+                        <ul class="right">
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                        <ul class="left">
+                            <li><a href="/">Home</a></li>
+                        </ul>
+                    {{/if}}
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            {{{body}}}
+        </div>
+    </main>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/javascripts/materialize.js"></script>
     <script type="text/javascript" src="/javascripts/dropdown.js"></script>

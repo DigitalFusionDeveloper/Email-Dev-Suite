@@ -5,6 +5,7 @@ var folder = require("../api/folder");
 var client = require("../db/api/client");
 var api = require("../api/api");
 var deData = require("../db/api/deData");
+var stats = require("../db/api/stats");
 
 require("dotenv").config();
 
@@ -17,9 +18,12 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 /* GET home page. */
 router.get("/", function(req, res, next) {
     client.getClients().then(clients => {
-        res.render("index", {
-            employee: req.session.employee,
-            clients: clients
+        stats.getAllMinutes().then(minutes => {
+            res.render("index", {
+                employee: req.session.employee,
+                clients: clients,
+                minutes: minutes.sum
+            });
         });
     });
 });
@@ -77,6 +81,7 @@ router.post("/de/createExtension/:client", function(req, res, next) {
     var clientName = req.params.client;
     var deString = req.body.data;
     var columns = api.getHeaderArray(deString);
+    console.log(columns);
     de.postDE(IET_Client, req.body.name, req.body.folderNumber, columns).post(function(err) {
         if (err) {
             res.render("error", {
@@ -87,6 +92,7 @@ router.post("/de/createExtension/:client", function(req, res, next) {
         } else {
             var promises = api.buildRowPromises(api.getRowsArray(deString), IET_Client, req.body.name);
             Promise.all(promises).then(() => {
+                stats.insertMinutes("data extension", 4).then();
                 res.render("client", {
                     message: ["Data Extension Ready to go!"],
                     clientName: clientName,
@@ -119,6 +125,7 @@ router.post("/folder/create/:client", function(req, res, next) {
             });
 
             Promise.all(api.buildPromises(resultArray)).then(values => {
+                stats.insertMinutes("folders", 2).then();
                 res.render("client", {
                     message: values,
                     clientName: clientName,

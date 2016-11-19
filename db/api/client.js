@@ -2,7 +2,7 @@ var knex = require("../knex");
 
 module.exports = {
     getClients: function() {
-        return knex.select("client_name").from("client");
+        return knex("client").orderBy("client_name", "ASC");
     },
     getClient: function(name) {
         return knex("client").where("client_name", name).first();

@@ -1,13 +1,19 @@
-<div class="section row col s12">
+<div class="section row col s12 clientPadding">
     <span class="col s4"></span>
-    <a class='dropdown-button btn col s4' data-beloworigin="true" href='#' data-activates='dropdown1'>Client List</a>
+    <a class='dropdown-button btn light-blue accent-2 col s4' data-beloworigin="true" href='#' data-activates='dropdown1'>Client List</a>
     <span class="col s4"></span>
 </div>
 
-
+<div class="row">
+    <div class="col s4"></div>
+    <div class="col s4">
+        <p class="blue-text center-align">We've Saved {{minutes}} Minutes!</p>
+    </div>
+    <div class="col s4"></div>
+</div>
 <!-- Dropdown Structure -->
 <ul id='dropdown1' class='dropdown-content'>
     {{#each clients}}
-        <li><a href="/{{this.client_name}}">{{this.client_name}}</a></li>
+        <li><a class="blue-text" href="/{{this.client_name}}">{{this.client_name}}</a></li>
     {{/each}}
 </ul>
