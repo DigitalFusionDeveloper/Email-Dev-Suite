@@ -153,13 +153,13 @@ router.post("/folder/create/:client", function(req, res, next) {
                 if (clientName != "DF_DEV") {
                     stats.insertMinutes("folders", 2).then();
                 }
-                res.render("completed", {
+                res.render("client", {
                     message: values,
                     clientName: clientName,
                     employee: req.session.employee
                 });
             }, reason => {
-                res.render("completed", {
+                res.render("client", {
                     message: reason,
                     clientName: clientName,
                     employee: req.session.employee
