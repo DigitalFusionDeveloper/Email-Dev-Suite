@@ -81,7 +81,6 @@ router.post("/de/createExtension/:client", function(req, res, next) {
     var clientName = req.params.client;
     var deString = req.body.data;
     var columns = api.getHeaderArray(deString);
-    console.log(columns);
     de.postDE(IET_Client, req.body.name, req.body.folderNumber, columns).post(function(err) {
         if (err) {
             res.render("error", {
@@ -105,7 +104,29 @@ router.post("/de/createExtension/:client", function(req, res, next) {
 
 router.post("/de/updateExtension/:client", function(req, res, next) {
     var clientName = req.params.client;
-    res.send(req.body);
+    var deString = req.body.data;
+    de.deleteDE(IET_Client, req.body.key).delete(function(err, response) {
+        var columns = api.getHeaderArray(deString);
+        de.postDE(IET_Client, req.body.name, req.body.parentFolder, columns).post(function(err) {
+            if (err) {
+                res.render("error", {
+                    message: "Another Data Extension with that name already exists... I'm pretty sure!",
+                    error: err,
+                    employee: req.session.employee
+                });
+            } else {
+                var promises = api.buildRowPromises(api.getRowsArray(deString), IET_Client, req.body.name);
+                Promise.all(promises).then(() => {
+                    stats.insertMinutes("data extension", 4).then();
+                    res.render("client", {
+                        message: ["Data Extension Updated!"],
+                        clientName: clientName,
+                        employee: req.session.employee
+                    });
+                });
+            }
+        });
+    });
 });
 
 router.post("/folder/create/:client", function(req, res, next) {

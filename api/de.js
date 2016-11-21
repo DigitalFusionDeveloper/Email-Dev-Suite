@@ -33,10 +33,10 @@ module.exports = {
         return client.dataExtension(options);
     },
 
-    deleteDE: function(client) {
+    deleteDE: function(client, key) {
         var options = {
             props: {
-                "CustomerKey": "7DEC95AA-562D-4915-92D9-509F37F27E4C"
+                "CustomerKey": key
             } //required
         };
         return client.dataExtension(options);

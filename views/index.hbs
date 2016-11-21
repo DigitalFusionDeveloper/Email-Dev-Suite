@@ -17,3 +17,18 @@
         <li><a class="blue-text" href="/{{this.client_name}}">{{this.client_name}}</a></li>
     {{/each}}
 </ul>
+
+{{#if message}}
+    <hr>
+    <div class="row">
+        <div class="col s6">
+            <div class="card blue-grey">
+                <div class="card-content white-text">
+                    {{#each message}}
+                        <p>{{this}}</p>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+{{/if}}

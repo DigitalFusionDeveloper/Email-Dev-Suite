@@ -33,20 +33,34 @@
     </div>
 {{/if}}
 
+
 {{#if extension}}
-    <h4>Name of Extension - {{data.text}}</h4>
+    <h4>{{data.text}}</h4>
     <div class="row">
         <form class="col s12" action="/de/updateExtension/{{clientName}}" method="post">
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea name="data" id="textarea1" autofocus class="materialize-textarea" placeholder="Copy and paste directly from excel do not modify.  Enter only Tab-separated values."></textarea>
+                    <textarea name="data" id="textarea1" autofocus class="materialize-textarea" placeholder="Email must be first column. All other columns are text.  Copy and paste directly from excel do not modify."></textarea>
                     <label for="textarea1">Copy/Paste the Data Extension below:</label>
                 </div>
             </div>
+
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                    <h4>Warning!</h4>
+                    <p>You are about to create a Data Extension.</p>
+                    <p>Are you sure?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn waves-effect waves-light green" type="submit">Create Data Extension<i class="material-icons right">send</i></button>
+                    <a href="#!" class="modal-action modal-close waves-effect waves-light btn red">Close</a>
+                </div>
+            </div>
+
             <input type="text" name="key" value="{{data.number}}" hidden>
             <input type="text" name="name" value="{{data.text}}" hidden>
             <input type="text" name="parentFolder" value="{{data.parent}}" hidden>
-            <button class="btn waves-effect waves-light" type="submit">Update Data Extension<i class="material-icons right">send</i></button>
+            <a class="btn waves-effect waves-light light-blue accent-2" href="#modal1" type="submit">Update Data Extension<i class="material-icons right">send</i></a>
         </form>
     </div>
 {{/if}}
