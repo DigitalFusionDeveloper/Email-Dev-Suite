@@ -126,7 +126,7 @@ module.exports = {
                 if (err) {
                     reject("Email: " + err);
                 } else {
-                    resolve("Email folder created");
+                    resolve("- Content > My Emails");
                 }
             });
         });
@@ -135,7 +135,7 @@ module.exports = {
                 if (err) {
                     reject("Media: " + err);
                 } else {
-                    resolve("Media folder created");
+                    resolve("- Content > Portfolio");
                 }
             });
         });
@@ -144,7 +144,7 @@ module.exports = {
                 if (err) {
                     reject("User-Initiated: " + err);
                 } else {
-                    resolve("User-Initiated folder created");
+                    resolve("- Interactions > User-Initiated");
                 }
             });
         });
@@ -153,7 +153,7 @@ module.exports = {
                 if (err) {
                     reject("Data Extension: " + err);
                 } else {
-                    resolve("Data Extension folder created");
+                    resolve("- Subscribers > Data Extension");
                 }
             });
         });

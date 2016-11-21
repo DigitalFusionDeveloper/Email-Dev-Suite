@@ -154,7 +154,10 @@ router.post("/folder/create/:client", function(req, res, next) {
                     stats.insertMinutes("folders", 2).then();
                 }
                 res.render("client", {
-                    message: values,
+                    message: {
+                        message: "Folders created:",
+                        values: values
+                    },
                     clientName: clientName,
                     employee: req.session.employee
                 });
