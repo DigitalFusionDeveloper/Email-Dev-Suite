@@ -94,7 +94,7 @@ router.post("/de/createExtension/:client", function(req, res, next) {
                 if (clientName != "DF_DEV") {
                     stats.insertMinutes("data extension", 4).then();
                 }
-                res.render("client", {
+                res.render("completed", {
                     message: ["Data Extension Ready to go!"],
                     clientName: clientName,
                     employee: req.session.employee
@@ -122,7 +122,7 @@ router.post("/de/updateExtension/:client", function(req, res, next) {
                     if (clientName != "DF_DEV") {
                         stats.insertMinutes("data extension", 4).then();
                     }
-                    res.render("client", {
+                    res.render("completed", {
                         message: ["Data Extension Updated!"],
                         clientName: clientName,
                         employee: req.session.employee
@@ -153,13 +153,13 @@ router.post("/folder/create/:client", function(req, res, next) {
                 if (clientName != "DF_DEV") {
                     stats.insertMinutes("folders", 2).then();
                 }
-                res.render("client", {
+                res.render("completed", {
                     message: values,
                     clientName: clientName,
                     employee: req.session.employee
                 });
             }, reason => {
-                res.render("client", {
+                res.render("completed", {
                     message: reason,
                     clientName: clientName,
                     employee: req.session.employee
