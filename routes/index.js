@@ -91,7 +91,9 @@ router.post("/de/createExtension/:client", function(req, res, next) {
         } else {
             var promises = api.buildRowPromises(api.getRowsArray(deString), IET_Client, req.body.name);
             Promise.all(promises).then(() => {
-                stats.insertMinutes("data extension", 4).then();
+                if (clientName != "DF_DEV") {
+                    stats.insertMinutes("data extension", 4).then();
+                }
                 res.render("client", {
                     message: ["Data Extension Ready to go!"],
                     clientName: clientName,
@@ -117,7 +119,9 @@ router.post("/de/updateExtension/:client", function(req, res, next) {
             } else {
                 var promises = api.buildRowPromises(api.getRowsArray(deString), IET_Client, req.body.name);
                 Promise.all(promises).then(() => {
-                    stats.insertMinutes("data extension", 4).then();
+                    if (clientName != "DF_DEV") {
+                        stats.insertMinutes("data extension", 4).then();
+                    }
                     res.render("client", {
                         message: ["Data Extension Updated!"],
                         clientName: clientName,
@@ -146,7 +150,9 @@ router.post("/folder/create/:client", function(req, res, next) {
             });
 
             Promise.all(api.buildPromises(resultArray)).then(values => {
-                stats.insertMinutes("folders", 2).then();
+                if (clientName != "DF_DEV") {
+                    stats.insertMinutes("folders", 2).then();
+                }
                 res.render("client", {
                     message: values,
                     clientName: clientName,
