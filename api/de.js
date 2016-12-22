@@ -3,7 +3,15 @@ module.exports = {
         var options = {
             props: {
                 "Name": name, //New DE Name
-                "CategoryID": folderNumber //folder ID
+                "CategoryID": folderNumber, //folder ID
+                "IsSendable": "true",
+                "SendableDataExtensionField": {
+                    "Name": "EmailAddress"
+                },
+                "SendableSubscriberField": {
+                    "Name": "Subscriber Key"
+                }
+
             },
             columns: columns
         };
